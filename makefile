@@ -50,3 +50,15 @@ listing-1.3: $(BIN_DIR)/capitulo_1/1.3/main-1.3.o $(BIN_DIR)/capitulo_1/1.2/reci
 $(BIN_DIR)/capitulo_1/1.3/main-1.3.o: $(SRC_DIR)/capitulo_1/1.3/main-1.3.c $(SRC_DIR)/capitulo_1/1.3/reciprocal.hpp
 	@$(MKDIR) $(BIN_DIR)/capitulo_1/1.3
 	$(CC) $(CFLAGS) -I$(SRC_DIR)/capitulo_1/1.3 -c $< -o $@
+
+# === Regla genérica para listings simples ===
+# Esto compila un solo archivo .c o .cpp a ejecutable
+define SIMPLE_LISTING
+$(BIN_DIR)/$(1)/listing-$(1)$(EXEEXT): $(SRC_DIR)/$(1)/$(2).c
+	@$(MKDIR) $(BIN_DIR)/$(1)
+	$(CC) $(CFLAGS) -o $$@ $$<
+
+$(BIN_DIR)/$(1)/listing-$(1)$(EXEEXT): $(SRC_DIR)/$(1)/$(2).cpp
+	@$(MKDIR) $(BIN_DIR)/$(1)
+	$(CXX) $(CXXFLAGS) -o $$@ $$<
+endef
